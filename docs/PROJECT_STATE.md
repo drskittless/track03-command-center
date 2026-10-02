@@ -6,17 +6,17 @@ Updated 2026-10-03. Source folder: `C:\Users\KIIT\Documents\KBC_vibeathon`.
 
 ### Local folder and Git
 
-- Git is initialized in this folder and connected to `https://github.com/drskittless/track03-command-center.git`. Local `main` tracks `origin/main` at `9151e99` after a successful fast-forward from the A5 test cleanup commits. No feature branch or commit has been made for B1.
-- The local status after B1 shows the skeleton and generated artifacts untracked, along with the planning files and PDF. No `.env` is present. The PDF remains unopened. The user reports contract/type generation was idempotent.
+- Git is initialized in this folder and connected to `https://github.com/drskittless/track03-command-center.git`. `T-001/venue-impact-demo` tracks `origin/T-001/venue-impact-demo` at `e416212` (`T-001: build venue impact demo`).
+- The V0 implementation is committed and pushed. The worktree contains only the excluded planning files, PDF, and `.codex/` as untracked items. No `.env` is present; the PDF remains unopened.
 - Present files: `README.md`, `Kaun Banega Codepati 2026.pdf` (binary; not read), `Kaun_Banega_Codepati_2026_Problem_Statements.md`, `Track 03 V0_ Setup Runbook (3 devices) (1).md`, `Track 03 V0_ Setup Runbook (3 devices).md`, `TRACK_03_TEAM_WORKFLOW_AND_V0_PLAN.md`, `workflow.md`, and `docs/PROJECT_STATE.md`.
 - The requested canonical path `docs/track03-v0-runbook.md` is absent. The `(1)` runbook copy contains the desktop-app TOOLING CHANGE; the other runbook copy does not.
 
 ### Part B skeleton comparison
 
 - **DONE — owner-reported, artifact presence checked:** B1 monorepo skeleton exists: FastAPI health endpoint/tests, Python project config, contracts/fixtures placeholder, impact stub/tests, React/Vite/TypeScript app, contract generator and setup scripts, Git hooks, CI, PR template, CODEOWNERS, `.env.example`, and `.codex/config.toml`.
-- **DONE — owner-reported:** `sh scripts/setup.sh kshitij`, `uv run ruff check .`, `uv run pytest` (3 passed, 1 warning), `./scripts/gen-contract.sh`, `pnpm -C apps/web lint`, and `pnpm -C apps/web test` (1 passed) all completed successfully. Contract generation was reported idempotent. These command outputs were supplied by the owner, not rerun in this Windows shell.
-- The B1 files remain uncommitted. The local untracked planning files and PDF are separate from the B1 scaffold and should be reviewed before staging; do not blindly stage the PDF.
-- B3 still needs `AGENTS.md`, the three role files, and the DEV Context index update. T-001 through T-012 have not been confirmed started.
+- **DONE — verified in Windows PowerShell:** `scripts/setup.ps1 kshitij`, `scripts/gen-contract.ps1`, `uv run ruff check .`, `uv run pytest` (9 passed, 1 Starlette/httpx deprecation warning), `pnpm -C apps/web lint`, `pnpm -C apps/web test` (1 passed), and `pnpm -C apps/web build`. Contract generation is idempotent.
+- B1 and the V0 implementation are committed and pushed in `e416212`. Planning files, PDF, and `.codex/` were excluded from that commit.
+- B3 still needs `AGENTS.md`, the three role files, and the DEV Context index update. T-001 is implemented on the pushed branch; the status of T-002 through T-012 is not confirmed.
 
 ## B. Project status
 
@@ -28,9 +28,9 @@ The following setup history is owner-reported; I did not independently inspect t
 - **PENDING — owner-reported status not confirmed:** Privately hand the token and four IDs to Prajjwal. The owner reported that the IDs were collected but did not say the handoff occurred.
 - **DONE — verified from user-provided terminal output and screenshot:** A5 is complete on this device. Local `main` tracks `origin/main`; the temporary `T-000/hello-kshitij` branch was pushed, observed on GitHub, and cleaned up.
 - **DONE — owner-reported:** A5 is complete on all three devices. Parth and Prajjwal completed the clone/test-branch checks; Parth's test branch was removed, and the accidental `HELLO.md` on main was removed in a follow-up commit. GitHub collaborator screenshot shows `parthmehrotra-py` and `praj267`; repo owner is `drskittless`.
-- **DONE — owner-reported:** B1 repo skeleton, hooks, CI configuration, and contract/type generation are in place and passed the reported checks. The local skeleton artifacts are present; GitHub does not yet contain them because no commit was made.
-- **IN PROGRESS — local files, not yet executable-verified:** A compact venue-change slice now defines shared models and seed records, deterministic downstream impact, FastAPI board/preview/apply/reset endpoints, a live Notion REST adapter, role-filtered React views, and PowerShell setup/contract scripts. Python syntax and PowerShell parsing passed. Full tests, generated contract refresh, browser run, and live Notion read/write remain unverified because this desktop shell lacks the Windows Python dependencies and cannot access WSL.
-- **BLOCKED — app workspace permission:** Creating `T-001/venue-impact-demo` failed with `fatal: cannot lock ref 'refs/heads/T-001/venue-impact-demo': unable to create directory for .git/refs/heads/T-001/venue-impact-demo`. No branch or commit was created; user terminal can create the branch after tests.
+- **DONE — verified:** B1 repo skeleton, hooks, CI configuration, and contract/type generation are committed and pushed in `e416212` on `T-001/venue-impact-demo`.
+- **DONE — fixture implementation verified:** shared models and seed records, deterministic impact evaluation, FastAPI board/preview/apply/reset endpoints, a Notion REST adapter, role-filtered React views, and Windows PowerShell setup. The fixture API returned `{"status":"ok","data_source":"fixtures"}` and the web app returned HTTP 200. Both local servers were started for the demo.
+- **PENDING — live integration:** `.env` has not been created and live Notion read/write has not been verified. Keep the token private and out of Git.
 - **PENDING — owner-reported status not confirmed:** B2a: Parth seeds the 12 Dev Tasks from C2 and reports ready. B2b: Prajjwal privately hands the Notion token and four database IDs to Kshitij and Parth. No secret should enter this repo or group chat. B2a and B3 are process setup, not blockers for the event demo slice.
 - **PENDING:** B3: add `AGENTS.md`, role files, and the DEV Context index; then do its specified final commit/push only after reviewing exactly what will be included.
 - **PENDING:** B4 per-device setup/Notion MCP, B5 branch protection, B6 role prompts; then freeze contract v0 before starting task implementation.
@@ -67,14 +67,14 @@ The matches above cover CLI invocations and MCP setup instructions. A literal `c
 
 - Git is now linked locally to the owner-reported public remote, and A5's single-device test passed. The other devices' clones/branch tests, GitHub branch protection, and CI are not verified.
 - The canonical runbook path named in the request is missing, and two differently sized runbook copies coexist. Only one has the required desktop-app override. Following the older copy would reintroduce CLI instructions.
-- The B1 skeleton prompt asks for `CODEOWNERS` at `.github/CODEOWNERS`, while the requested existence check named root `CODEOWNERS`; neither currently exists. Keep the intended `.github/CODEOWNERS` location explicit when implementing.
-- Git and the A5 branch test now work in this folder. The Part B guardrails are still absent; GitHub branch protection and CI status have not been verified.
+- `.github/CODEOWNERS`, Git hooks, and the CI workflow are present. GitHub branch protection and the pushed branch's CI result have not yet been verified.
+- Git and the A5 branch test work on all three devices per owner report. The task branch is pushed; the pull request is not yet open.
 - Runbook A1 says Windows users should move to Ubuntu/WSL and use that terminal, while the desktop-app override changes only Codex interaction. The chosen local workspace is a Windows Documents path; the runbook does not verify whether the app and team setup will use this path directly or a WSL clone.
 
 ## F. Next five steps, in order
 
-1. Install native Windows `uv`, run `scripts/setup.ps1 kshitij`, and refresh generated schemas/types with `scripts/gen-contract.ps1`.
-2. Run Python and web checks, start API/web from PowerShell, and rehearse the fixture venue-change path.
-3. Prajjwal privately supplies the Notion token and four database IDs; verify live Notion read, preview, apply, and readback.
-4. Create `T-001/venue-impact-demo` from the user terminal, stage the product files only (exclude the PDF and unrelated planning files), push, open a PR, and check CI.
-5. Use remaining time for teammate review/polish and the complete live demo; defer B2a/B3/B4–B6 unless time remains.
+1. Open a PR from `T-001/venue-impact-demo`, have a teammate review it, and confirm GitHub CI passes before merging.
+2. Confirm the private handoff of the Notion token and four DEMO database IDs to the devices that need them.
+3. Create a local `.env` from `.env.example`, fill the secret and IDs, set `USE_FIXTURES=false`, and restart the API. Never commit `.env`.
+4. Verify live Notion reads and preview first; then confirm one controlled DEMO change and read back Operations, Event Tasks, and Impact Log.
+5. After the live flow works, resume the remaining Part B team setup and split feature tasks into separate branches with clear module ownership.
