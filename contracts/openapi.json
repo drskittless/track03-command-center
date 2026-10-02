@@ -1,0 +1,564 @@
+{
+  "components": {
+    "schemas": {
+      "ChangeRequest": {
+        "properties": {
+          "change_type": {
+            "default": "venue",
+            "enum": [
+              "venue",
+              "schedule",
+              "deployment"
+            ],
+            "title": "Change Type",
+            "type": "string"
+          },
+          "new_date": {
+            "anyOf": [
+              {
+                "maxLength": 32,
+                "minLength": 8,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "New Date"
+          },
+          "new_location": {
+            "anyOf": [
+              {
+                "maxLength": 120,
+                "minLength": 2,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "New Location"
+          },
+          "new_venue": {
+            "anyOf": [
+              {
+                "maxLength": 120,
+                "minLength": 2,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "New Venue"
+          },
+          "target_item_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Item Id"
+          }
+        },
+        "title": "ChangeRequest",
+        "type": "object"
+      },
+      "EventCloseoutRequest": {
+        "properties": {
+          "lessons": {
+            "maxLength": 1500,
+            "minLength": 5,
+            "title": "Lessons",
+            "type": "string"
+          },
+          "summary": {
+            "maxLength": 1500,
+            "minLength": 5,
+            "title": "Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "summary",
+          "lessons"
+        ],
+        "title": "EventCloseoutRequest",
+        "type": "object"
+      },
+      "FollowUpTask": {
+        "properties": {
+          "event_id": {
+            "title": "Event Id",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "owner_role": {
+            "enum": [
+              "Operations",
+              "Volunteers",
+              "Leadership"
+            ],
+            "title": "Owner Role",
+            "type": "string"
+          },
+          "related_item_id": {
+            "title": "Related Item Id",
+            "type": "string"
+          },
+          "status": {
+            "default": "Todo",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "event_id",
+          "related_item_id",
+          "owner_role"
+        ],
+        "title": "FollowUpTask",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "ImpactResult": {
+        "properties": {
+          "affected": {
+            "items": {
+              "$ref": "#/components/schemas/ImpactedItem"
+            },
+            "title": "Affected",
+            "type": "array"
+          },
+          "change_type": {
+            "default": "venue",
+            "enum": [
+              "venue",
+              "schedule",
+              "deployment"
+            ],
+            "title": "Change Type",
+            "type": "string"
+          },
+          "event_id": {
+            "title": "Event Id",
+            "type": "string"
+          },
+          "follow_up_tasks": {
+            "items": {
+              "$ref": "#/components/schemas/FollowUpTask"
+            },
+            "title": "Follow Up Tasks",
+            "type": "array"
+          },
+          "from_value": {
+            "default": "",
+            "title": "From Value",
+            "type": "string"
+          },
+          "from_venue": {
+            "title": "From Venue",
+            "type": "string"
+          },
+          "target_item_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Item Id"
+          },
+          "to_value": {
+            "default": "",
+            "title": "To Value",
+            "type": "string"
+          },
+          "to_venue": {
+            "title": "To Venue",
+            "type": "string"
+          }
+        },
+        "required": [
+          "event_id",
+          "from_venue",
+          "to_venue",
+          "affected",
+          "follow_up_tasks"
+        ],
+        "title": "ImpactResult",
+        "type": "object"
+      },
+      "ImpactedItem": {
+        "properties": {
+          "dependency_path": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Dependency Path",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "owner_role": {
+            "enum": [
+              "Operations",
+              "Volunteers",
+              "Leadership"
+            ],
+            "title": "Owner Role",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "owner_role",
+          "reason",
+          "dependency_path"
+        ],
+        "title": "ImpactedItem",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "Track 03 Event Command Center",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/demo/reset": {
+      "post": {
+        "operationId": "reset_demo_api_demo_reset_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Reset Demo Api Demo Reset Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Reset Demo"
+      }
+    },
+    "/api/events/{event_id}/apply": {
+      "post": {
+        "operationId": "apply_api_events__event_id__apply_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "event_id",
+            "required": true,
+            "schema": {
+              "title": "Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImpactResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Apply"
+      }
+    },
+    "/api/events/{event_id}/board": {
+      "get": {
+        "operationId": "board_api_events__event_id__board_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "event_id",
+            "required": true,
+            "schema": {
+              "title": "Event Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "role",
+            "required": false,
+            "schema": {
+              "default": "Operations",
+              "enum": [
+                "Operations",
+                "Volunteers",
+                "Leadership"
+              ],
+              "title": "Role",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Board Api Events  Event Id  Board Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Board"
+      }
+    },
+    "/api/events/{event_id}/closeout": {
+      "post": {
+        "operationId": "closeout_api_events__event_id__closeout_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "event_id",
+            "required": true,
+            "schema": {
+              "title": "Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventCloseoutRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Closeout Api Events  Event Id  Closeout Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Closeout"
+      }
+    },
+    "/api/events/{event_id}/preview": {
+      "post": {
+        "operationId": "preview_api_events__event_id__preview_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "event_id",
+            "required": true,
+            "schema": {
+              "title": "Event Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImpactResult"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Preview"
+      }
+    },
+    "/health": {
+      "get": {
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Health Health Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health"
+      }
+    }
+  }
+}

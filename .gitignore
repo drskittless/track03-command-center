@@ -1,0 +1,9 @@
+.env
+.role
+__pycache__/
+.venv/
+node_modules/
+.pnpm-store/
+dist/
+.pytest_cache/
+.ruff_cache/

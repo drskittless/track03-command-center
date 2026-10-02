@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+if git diff --cached --name-only | grep -Eq '(^|/)\.env$'; then
+    printf '%s\n' 'Refusing to commit .env files.' >&2
+    exit 1
+fi
+
+if command -v gitleaks >/dev/null 2>&1; then
+    if gitleaks git --help >/dev/null 2>&1; then
+        gitleaks git --pre-commit --redact
+    else
+        gitleaks protect --staged --redact
+    fi
+else
+    printf '%s\n' 'WARN: gitleaks is not installed; CI will scan.' >&2
+fi

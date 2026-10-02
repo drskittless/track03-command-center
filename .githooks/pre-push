@@ -1,0 +1,12 @@
+#!/bin/sh
+set -e
+
+branch=$(git branch --show-current)
+if [ "$branch" = "main" ]; then
+    exit 0
+fi
+
+if ! printf '%s\n' "$branch" | grep -Eq '^T-[0-9]+/'; then
+    printf '%s\n' 'Branch must look like T-<id>/<slug>' >&2
+    exit 1
+fi
