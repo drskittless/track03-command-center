@@ -1,0 +1,515 @@
+{
+  "ChangeRequest": {
+    "properties": {
+      "change_type": {
+        "default": "venue",
+        "enum": [
+          "venue",
+          "schedule",
+          "deployment"
+        ],
+        "title": "Change Type",
+        "type": "string"
+      },
+      "new_date": {
+        "anyOf": [
+          {
+            "maxLength": 32,
+            "minLength": 8,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "New Date"
+      },
+      "new_location": {
+        "anyOf": [
+          {
+            "maxLength": 120,
+            "minLength": 2,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "New Location"
+      },
+      "new_venue": {
+        "anyOf": [
+          {
+            "maxLength": 120,
+            "minLength": 2,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "New Venue"
+      },
+      "target_item_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Target Item Id"
+      }
+    },
+    "title": "ChangeRequest",
+    "type": "object"
+  },
+  "Event": {
+    "properties": {
+      "date": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Date"
+      },
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "status": {
+        "default": "Planned",
+        "title": "Status",
+        "type": "string"
+      },
+      "venue": {
+        "title": "Venue",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "venue"
+    ],
+    "title": "Event",
+    "type": "object"
+  },
+  "EventCloseoutRequest": {
+    "properties": {
+      "lessons": {
+        "maxLength": 1500,
+        "minLength": 5,
+        "title": "Lessons",
+        "type": "string"
+      },
+      "summary": {
+        "maxLength": 1500,
+        "minLength": 5,
+        "title": "Summary",
+        "type": "string"
+      }
+    },
+    "required": [
+      "summary",
+      "lessons"
+    ],
+    "title": "EventCloseoutRequest",
+    "type": "object"
+  },
+  "FollowUpTask": {
+    "properties": {
+      "event_id": {
+        "title": "Event Id",
+        "type": "string"
+      },
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "owner_role": {
+        "enum": [
+          "Operations",
+          "Volunteers",
+          "Leadership"
+        ],
+        "title": "Owner Role",
+        "type": "string"
+      },
+      "related_item_id": {
+        "title": "Related Item Id",
+        "type": "string"
+      },
+      "status": {
+        "default": "Todo",
+        "title": "Status",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "event_id",
+      "related_item_id",
+      "owner_role"
+    ],
+    "title": "FollowUpTask",
+    "type": "object"
+  },
+  "ImpactResult": {
+    "$defs": {
+      "FollowUpTask": {
+        "properties": {
+          "event_id": {
+            "title": "Event Id",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "owner_role": {
+            "enum": [
+              "Operations",
+              "Volunteers",
+              "Leadership"
+            ],
+            "title": "Owner Role",
+            "type": "string"
+          },
+          "related_item_id": {
+            "title": "Related Item Id",
+            "type": "string"
+          },
+          "status": {
+            "default": "Todo",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "event_id",
+          "related_item_id",
+          "owner_role"
+        ],
+        "title": "FollowUpTask",
+        "type": "object"
+      },
+      "ImpactedItem": {
+        "properties": {
+          "dependency_path": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Dependency Path",
+            "type": "array"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "owner_role": {
+            "enum": [
+              "Operations",
+              "Volunteers",
+              "Leadership"
+            ],
+            "title": "Owner Role",
+            "type": "string"
+          },
+          "reason": {
+            "title": "Reason",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "type",
+          "owner_role",
+          "reason",
+          "dependency_path"
+        ],
+        "title": "ImpactedItem",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "affected": {
+        "items": {
+          "$ref": "#/$defs/ImpactedItem"
+        },
+        "title": "Affected",
+        "type": "array"
+      },
+      "change_type": {
+        "default": "venue",
+        "enum": [
+          "venue",
+          "schedule",
+          "deployment"
+        ],
+        "title": "Change Type",
+        "type": "string"
+      },
+      "event_id": {
+        "title": "Event Id",
+        "type": "string"
+      },
+      "follow_up_tasks": {
+        "items": {
+          "$ref": "#/$defs/FollowUpTask"
+        },
+        "title": "Follow Up Tasks",
+        "type": "array"
+      },
+      "from_value": {
+        "default": "",
+        "title": "From Value",
+        "type": "string"
+      },
+      "from_venue": {
+        "title": "From Venue",
+        "type": "string"
+      },
+      "target_item_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Target Item Id"
+      },
+      "to_value": {
+        "default": "",
+        "title": "To Value",
+        "type": "string"
+      },
+      "to_venue": {
+        "title": "To Venue",
+        "type": "string"
+      }
+    },
+    "required": [
+      "event_id",
+      "from_venue",
+      "to_venue",
+      "affected",
+      "follow_up_tasks"
+    ],
+    "title": "ImpactResult",
+    "type": "object"
+  },
+  "ImpactedItem": {
+    "properties": {
+      "dependency_path": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Dependency Path",
+        "type": "array"
+      },
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "owner_role": {
+        "enum": [
+          "Operations",
+          "Volunteers",
+          "Leadership"
+        ],
+        "title": "Owner Role",
+        "type": "string"
+      },
+      "reason": {
+        "title": "Reason",
+        "type": "string"
+      },
+      "type": {
+        "title": "Type",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "type",
+      "owner_role",
+      "reason",
+      "dependency_path"
+    ],
+    "title": "ImpactedItem",
+    "type": "object"
+  },
+  "OperationItem": {
+    "properties": {
+      "dependency_reason": {
+        "default": "",
+        "title": "Dependency Reason",
+        "type": "string"
+      },
+      "depends_on": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Depends On",
+        "type": "array"
+      },
+      "event_id": {
+        "title": "Event Id",
+        "type": "string"
+      },
+      "id": {
+        "title": "Id",
+        "type": "string"
+      },
+      "location": {
+        "title": "Location",
+        "type": "string"
+      },
+      "name": {
+        "title": "Name",
+        "type": "string"
+      },
+      "owner_role": {
+        "enum": [
+          "Operations",
+          "Volunteers",
+          "Leadership"
+        ],
+        "title": "Owner Role",
+        "type": "string"
+      },
+      "status": {
+        "title": "Status",
+        "type": "string"
+      },
+      "type": {
+        "title": "Type",
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "event_id",
+      "type",
+      "owner_role",
+      "status",
+      "location"
+    ],
+    "title": "OperationItem",
+    "type": "object"
+  },
+  "VenueChangeRequest": {
+    "properties": {
+      "change_type": {
+        "default": "venue",
+        "enum": [
+          "venue",
+          "schedule",
+          "deployment"
+        ],
+        "title": "Change Type",
+        "type": "string"
+      },
+      "new_date": {
+        "anyOf": [
+          {
+            "maxLength": 32,
+            "minLength": 8,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "New Date"
+      },
+      "new_location": {
+        "anyOf": [
+          {
+            "maxLength": 120,
+            "minLength": 2,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "New Location"
+      },
+      "new_venue": {
+        "anyOf": [
+          {
+            "maxLength": 120,
+            "minLength": 2,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "New Venue"
+      },
+      "target_item_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Target Item Id"
+      }
+    },
+    "title": "ChangeRequest",
+    "type": "object"
+  }
+}

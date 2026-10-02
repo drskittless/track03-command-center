@@ -1,0 +1,24 @@
+{
+  "event": {
+    "id": "EVT-001",
+    "name": "KBC Tech Fest 2026",
+    "date": "2026-10-10",
+    "venue": "Main Auditorium",
+    "status": "Planned"
+  },
+  "items": [
+    {"id":"OP-001","name":"Opening Keynote","event_id":"EVT-001","type":"Session","owner_role":"Operations","status":"Planned","location":"Main Auditorium","depends_on":[]},
+    {"id":"OP-002","name":"Panel - AI in Healthcare","event_id":"EVT-001","type":"Session","owner_role":"Operations","status":"Planned","location":"Main Auditorium","depends_on":[]},
+    {"id":"OP-003","name":"Closing Ceremony","event_id":"EVT-001","type":"Session","owner_role":"Leadership","status":"Planned","location":"Main Auditorium","depends_on":[]},
+    {"id":"OP-004","name":"Workshop - Notion Ops","event_id":"EVT-001","type":"Session","owner_role":"Operations","status":"Planned","location":"Seminar Hall B","depends_on":[]},
+    {"id":"OP-005","name":"Projector and Screen","event_id":"EVT-001","type":"Equipment","owner_role":"Operations","status":"Planned","location":"Main Auditorium","depends_on":["OP-001","OP-002","OP-003"],"dependency_reason":"Needed for keynote, panel and closing."},
+    {"id":"OP-006","name":"Stage Microphones","event_id":"EVT-001","type":"Equipment","owner_role":"Operations","status":"Planned","location":"Main Auditorium","depends_on":["OP-001","OP-002"],"dependency_reason":"Needed on stage for keynote and panel."},
+    {"id":"OP-007","name":"Workshop Laptops","event_id":"EVT-001","type":"Equipment","owner_role":"Operations","status":"Planned","location":"Seminar Hall B","depends_on":["OP-004"],"dependency_reason":"Needed for the workshop."},
+    {"id":"OP-008","name":"Registration Desk Volunteers","event_id":"EVT-001","type":"Volunteer","owner_role":"Volunteers","status":"Planned","location":"Main Auditorium Lobby","depends_on":["OP-001"],"dependency_reason":"Staff the door for the keynote."},
+    {"id":"OP-009","name":"Stage Crew","event_id":"EVT-001","type":"Volunteer","owner_role":"Volunteers","status":"Planned","location":"Main Auditorium","depends_on":["OP-001","OP-003"],"dependency_reason":"Run the stage for keynote and closing."},
+    {"id":"OP-010","name":"Speaker Venue Notice","event_id":"EVT-001","type":"Communication","owner_role":"Leadership","status":"Planned","location":"Email","depends_on":["OP-001","OP-002"],"dependency_reason":"Speakers must be told the venue."},
+    {"id":"OP-011","name":"Attendee Schedule Email","event_id":"EVT-001","type":"Communication","owner_role":"Leadership","status":"Planned","location":"Email","depends_on":["OP-001","OP-002","OP-003"],"dependency_reason":"Attendees must be told the venue."}
+  ],
+  "tasks": [],
+  "impact_log": []
+}

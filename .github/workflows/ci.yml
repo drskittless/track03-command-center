@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: uv sync
+      - run: pnpm -C apps/web install --frozen-lockfile
+      - run: uv run ruff check .
+      - run: uv run pytest
+      - run: ./scripts/gen-contract.sh
+      - run: git diff --exit-code
+      - run: pnpm -C apps/web lint
+      - run: pnpm -C apps/web test
+      - name: Check commit subjects
+        if: github.event_name == 'pull_request'
+        run: |
+          git log --format=%s "origin/${{ github.base_ref }}..HEAD" | while IFS= read -r subject; do
+            if ! printf '%s\n' "$subject" | grep -Eq '^T-[0-9]+: '; then
+              printf '%s\n' "Commit subject must start with T-<id>: $subject" >&2
+              exit 1
+            fi
+          done
+      - uses: gitleaks/gitleaks-action@v2

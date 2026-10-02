@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+first_line=$(sed -n '1p' "$1")
+if ! printf '%s\n' "$first_line" | grep -Eq '^T-[0-9]+: '; then
+    printf '%s\n' 'Commit must start with T-<id>: ' >&2
+    exit 1
+fi
